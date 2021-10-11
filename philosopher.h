@@ -18,6 +18,11 @@ typedef struct  s_info
     int         nb_timeof_eat;  
 }               t_info;
 
+typedef struct  s_philo
+{
+    
+}               t_philo;
+
 typedef struct  s_table
 {
     t_info  *info;

@@ -10,10 +10,44 @@ double ft_time(void)
     return (time_in_milli);
 }
 
+int     ft_number(char *str)
+{
+    int i;
+
+    i = 0;
+    while (str[i])
+    {
+        if (!ft_isdigit(str[i]))
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
+int     ft_valid_args(int ac, char **av)
+{
+    int i;
+
+    i = 1;
+    while (av[i])
+    {
+        if (!ft_number(av[i]))
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
+
 t_info *ft_parsedata(int ac, char **av)
 {
     t_info *tmp;
 
+    if (!ft_valid_args(ac, av))
+    {
+        printf("Error Reading data\n");
+        return (NULL);
+    }
     tmp = (t_info *)malloc(sizeof(t_info));
     tmp->nb_philos = ft_atoi(av[1]);
     tmp->time_to_die = ft_atoi(av[2]);
@@ -33,7 +67,9 @@ int main(int ac, char **av)
     if (ac == 5 || ac == 6)
     {
         parameters = ft_parsedata(ac, av);
-        //printf("number of philos :[%d]\ntime_to_die :[%lf]\ntime_to_eat :[%lf]\ntime_to_sleep :[%lf]\nnumber_of_times_philos_eat :[%d]\n", parameters->nb_philos, parameters->time_to_die, parameters->time_to_eat, parameters->time_to_sleep, parameters->nb_timeof_eat);
+        if (!parameters)
+            exit(0);
+        printf("number of philos :[%d]\ntime_to_die :[%lf]\ntime_to_eat :[%lf]\ntime_to_sleep :[%lf]\nnumber_of_times_philos_eat :[%d]\n", parameters->nb_philos, parameters->time_to_die, parameters->time_to_eat, parameters->time_to_sleep, parameters->nb_timeof_eat);
     }
     else
     {
