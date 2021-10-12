@@ -119,9 +119,8 @@ void    *job(void *philo)
     while (1)
     {
         printf("im eating....\n");
-        
         printf("im sleeping....\n");
-        
+        usleep();
         printf("im thinking....\n");
     }
 }
