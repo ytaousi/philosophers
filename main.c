@@ -68,14 +68,17 @@ t_philo *ft_init_philosophers(t_table *table)
     i = 0;
     philosophers = (t_philo *)malloc(sizeof(t_philo) * table->info->nb_philos);
     if (!philosophers)
+    {
+        printf("Error create philo struct\n");
         return (NULL);
+    }
     while (i < table->info->nb_philos)
     {
         philosophers[i].id = i + 1;
         philosophers[i].nb_meals = 0;
         philosophers[i].last_meal = ft_time();
-        philosophers[i].left_fork = ;
-        philosophers[i].right_fork = ;
+        philosophers[i].left_fork = i;
+        philosophers[i].right_fork = (i + 1) % table->info->nb_philos;
         i++;
     }
     return (philosophers);
@@ -89,13 +92,26 @@ pthread_mutex_t *ft_init_forks(t_table *table)
     i = 0;
     forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * table->info->nb_philos);
     if (!forks)
+    {
+        printf("error creating a mutex\n");
         return (NULL);
+    }
     while (i < table->info->nb_philos)
     {
         pthread_mutex_init(&(forks[i]), NULL);
         i++;
     }
     return (forks);
+}
+
+void    *job(void *philo)
+{
+    while (1)
+    {
+        printf("im eating....\n");
+        printf("im sleeping....\n");
+        printf("im thinking....\n");
+    }
 }
 
 void    ft_create_threads(t_table *table)
@@ -107,7 +123,7 @@ void    ft_create_threads(t_table *table)
     philo_threads = (pthread_t *)malloc(sizeof(pthread_t) * table->info->nb_philos);
     while (i < table->info->nb_philos)
     {
-        pthread_create(philo_threads[i], NULL, &job, NULL);
+        pthread_create(philo_threads + i, NULL, &job, NULL);
         i++;
     }
 }
@@ -122,7 +138,7 @@ int main(int ac, char **av)
         table->info = ft_parsedata(ac, av);
         if (!table->info)
             exit(0);
-        //printf("number of philos :[%d]\ntime_to_die :[%lf]\ntime_to_eat :[%lf]\ntime_to_sleep :[%lf]\nnumber_of_times_philos_eat :[%d]\n", parameters->nb_philos, parameters->time_to_die, parameters->time_to_eat, parameters->time_to_sleep, parameters->nb_timeof_eat);
+        printf("number of philos :[%d]\ntime_to_die :[%lf]\ntime_to_eat :[%lf]\ntime_to_sleep :[%lf]\nnumber_of_times_philos_eat :[%d]\n", table->info->nb_philos, table->info->time_to_die, table->info->time_to_eat, table->info->time_to_sleep, table->info->nb_timeof_eat);
         // Initialise table of philo's attribute
         table->philo = ft_init_philosophers(table);
         // Initialise fork's every fork is a mutex
