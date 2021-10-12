@@ -120,7 +120,6 @@ void    *job(void *philo)
     {
         printf("im eating....\n");
         printf("im sleeping....\n");
-        usleep();
         printf("im thinking....\n");
     }
 }
