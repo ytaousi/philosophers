@@ -1,5 +1,15 @@
 #include "philosopher.h"
 
+void    table_info(t_table *table)
+{
+    printf("number of philos :[%d]\ntime_to_die :[%lf]\ntime_to_eat :[%lf]\ntime_to_sleep :[%lf]\nnumber_of_times_philos_eat :[%d]\n", table->info->nb_philos, table->info->time_to_die, table->info->time_to_eat, table->info->time_to_sleep, table->info->nb_timeof_eat);
+}
+
+void philo_info(t_table *table)
+{
+    for (int i = 0; i < table->info->nb_philos; i++)
+            printf("philo ID:[%d]\nphilo N meals:[%d]\nphilo left fork[%d]\nphilo right fork[%d]\nphilo last meal[%lf]\n", table->philo[i].id, table->philo[i].nb_meals, table->philo[i].left_fork, table->philo[i].right_fork, table->philo[i].last_meal);
+}
 double ft_time(void)
 {
     struct timeval tv;
@@ -109,7 +119,9 @@ void    *job(void *philo)
     while (1)
     {
         printf("im eating....\n");
+        
         printf("im sleeping....\n");
+        
         printf("im thinking....\n");
     }
 }
@@ -136,14 +148,12 @@ int main(int ac, char **av)
     if (ac == 5 || ac == 6)
     {
         table->info = ft_parsedata(ac, av);
+        table_info(table);
         if (!table->info)
             exit(0);
-        printf("number of philos :[%d]\ntime_to_die :[%lf]\ntime_to_eat :[%lf]\ntime_to_sleep :[%lf]\nnumber_of_times_philos_eat :[%d]\n", table->info->nb_philos, table->info->time_to_die, table->info->time_to_eat, table->info->time_to_sleep, table->info->nb_timeof_eat);
         // Initialise table of philo's attribute
-        //printf("I am here\n");
         table->philo = ft_init_philosophers(table);
-        for (int i = 0; i < table->info->nb_philos; i++)
-            printf("philo ID:[%d]\nphilo N meals:[%d]\nphilo left fork[%d]\nphilo right fork[%d]\nphilo last meal[%lf]\n", table->philo[i].id, table->philo[i].nb_meals, table->philo[i].left_fork, table->philo[i].right_fork, table->philo[i].last_meal);
+        philo_info(table);
         // Initialise fork's every fork is a mutex
         table->forks = ft_init_forks(table);
         ft_create_threads(table);
@@ -151,6 +161,9 @@ int main(int ac, char **av)
     else
     {
         printf("Error nb args\n");
+        return (0);
     }
+    // supervisor to check philo health
+    while(1);
     return (0);
 }
