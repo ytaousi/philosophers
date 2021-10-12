@@ -144,10 +144,8 @@ int main(int ac, char **av)
         table->philo = ft_init_philosophers(table);
         for (int i = 0; i < table->info->nb_philos; i++)
             printf("philo ID:[%d]\nphilo N meals:[%d]\nphilo left fork[%d]\nphilo right fork[%d]\nphilo last meal[%lf]\n", table->philo[i].id, table->philo[i].nb_meals, table->philo[i].left_fork, table->philo[i].right_fork, table->philo[i].last_meal);
-        //usleep(2);
         // Initialise fork's every fork is a mutex
         table->forks = ft_init_forks(table);
-        //usleep(2);
         ft_create_threads(table);
     }
     else
