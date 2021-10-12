@@ -62,14 +62,16 @@ t_info *ft_parsedata(int ac, char **av)
 
 int main(int ac, char **av)
 {
-    t_info *parameters;
+    t_table *table;
     t_philo *philosophers;
+
+    table = (t_table *)malloc(sizeof(t_table));
     if (ac == 5 || ac == 6)
     {
-        parameters = ft_parsedata(ac, av);
-        if (!parameters)
+        table->info = ft_parsedata(ac, av);
+        if (!table->info)
             exit(0);
-        printf("number of philos :[%d]\ntime_to_die :[%lf]\ntime_to_eat :[%lf]\ntime_to_sleep :[%lf]\nnumber_of_times_philos_eat :[%d]\n", parameters->nb_philos, parameters->time_to_die, parameters->time_to_eat, parameters->time_to_sleep, parameters->nb_timeof_eat);
+        //printf("number of philos :[%d]\ntime_to_die :[%lf]\ntime_to_eat :[%lf]\ntime_to_sleep :[%lf]\nnumber_of_times_philos_eat :[%d]\n", parameters->nb_philos, parameters->time_to_die, parameters->time_to_eat, parameters->time_to_sleep, parameters->nb_timeof_eat);
     }
     else
     {
