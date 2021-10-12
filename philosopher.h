@@ -20,6 +20,7 @@ typedef struct  s_info
 
 typedef struct  s_philo
 {
+    int id;
     
 }               t_philo;
 
@@ -30,7 +31,4 @@ typedef struct  s_table
 }               t_table;
 
 double ft_time(void);
-
-
-
 #endif

@@ -63,7 +63,7 @@ t_info *ft_parsedata(int ac, char **av)
 int main(int ac, char **av)
 {
     t_info *parameters;
-
+    t_philo *philosophers;
     if (ac == 5 || ac == 6)
     {
         parameters = ft_parsedata(ac, av);
