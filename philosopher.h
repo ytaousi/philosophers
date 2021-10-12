@@ -15,7 +15,7 @@ typedef struct  s_info
     double      time_to_die;
     double      time_to_eat;
     double      time_to_sleep;
-    int         nb_timeof_eat;  
+    int         nb_timeof_eat;
 }               t_info;
 
 typedef struct  s_philo
@@ -33,6 +33,7 @@ typedef struct      s_table
     t_info          *info;
     t_philo         *philo;
     pthread_mutex_t *forks;
+    int             timeof_start;
 }                   t_table;
 
 #endif

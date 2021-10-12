@@ -98,10 +98,23 @@ pthread_mutex_t *ft_init_forks(t_table *table)
     return (forks);
 }
 
+void    ft_create_threads(t_table *table)
+{
+    pthread_t   *philo_threads;
+    int         i;
+
+    i = 0;
+    philo_threads = (pthread_t *)malloc(sizeof(pthread_t) * table->info->nb_philos);
+    while (i < table->info->nb_philos)
+    {
+        pthread_create(philo_threads[i], NULL, &job, NULL);
+        i++;
+    }
+}
+
 int main(int ac, char **av)
 {
     t_table *table;
-    t_philo *philosophers;
 
     table = (t_table *)malloc(sizeof(t_table));
     if (ac == 5 || ac == 6)
@@ -114,6 +127,7 @@ int main(int ac, char **av)
         table->philo = ft_init_philosophers(table);
         // Initialise fork's every fork is a mutex
         table->forks = ft_init_forks(table);
+        ft_create_threads(table);
     }
     else
     {
