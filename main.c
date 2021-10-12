@@ -60,6 +60,44 @@ t_info *ft_parsedata(int ac, char **av)
     return (tmp);
 }
 
+t_philo *ft_init_philosophers(t_table *table)
+{
+    t_philo *philosophers;
+    int     i;
+
+    i = 0;
+    philosophers = (t_philo *)malloc(sizeof(t_philo) * table->info->nb_philos);
+    if (!philosophers)
+        return (NULL);
+    while (i < table->info->nb_philos)
+    {
+        philosophers[i].id = i + 1;
+        philosophers[i].nb_meals = 0;
+        philosophers[i].last_meal = ft_time();
+        philosophers[i].left_fork = ;
+        philosophers[i].right_fork = ;
+        i++;
+    }
+    return (philosophers);
+}
+
+pthread_mutex_t *ft_init_forks(t_table *table)
+{
+    pthread_mutex_t *forks;
+    int             i;
+
+    i = 0;
+    forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * table->info->nb_philos);
+    if (!forks)
+        return (NULL);
+    while (i < table->info->nb_philos)
+    {
+        pthread_mutex_init(&(forks[i]), NULL);
+        i++;
+    }
+    return (forks);
+}
+
 int main(int ac, char **av)
 {
     t_table *table;
@@ -72,6 +110,10 @@ int main(int ac, char **av)
         if (!table->info)
             exit(0);
         //printf("number of philos :[%d]\ntime_to_die :[%lf]\ntime_to_eat :[%lf]\ntime_to_sleep :[%lf]\nnumber_of_times_philos_eat :[%d]\n", parameters->nb_philos, parameters->time_to_die, parameters->time_to_eat, parameters->time_to_sleep, parameters->nb_timeof_eat);
+        // Initialise table of philo's attribute
+        table->philo = ft_init_philosophers(table);
+        // Initialise fork's every fork is a mutex
+        table->forks = ft_init_forks(table);
     }
     else
     {

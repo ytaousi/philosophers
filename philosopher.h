@@ -21,14 +21,18 @@ typedef struct  s_info
 typedef struct  s_philo
 {
     int id;
+    int right_fork;
+    int left_fork;
+    int nb_meals;
+    double last_meal;
     
 }               t_philo;
 
-typedef struct  s_table
+typedef struct      s_table
 {
-    t_info  *info;
-    t_philo *philo;
-}               t_table;
+    t_info          *info;
+    t_philo         *philo;
+    pthread_mutex_t *forks;
+}                   t_table;
 
-double ft_time(void);
 #endif
