@@ -1,11 +1,11 @@
 #include "philosopher.h"
 
-void    table_info(t_table *table)
+void    table_info()
 {
     printf("number of philos :[%d]\ntime_to_die :[%lf]\ntime_to_eat :[%lf]\ntime_to_sleep :[%lf]\nnumber_of_times_philos_eat :[%d]\n", table->info->nb_philos, table->info->time_to_die, table->info->time_to_eat, table->info->time_to_sleep, table->info->nb_timeof_eat);
 }
 
-void philo_info(t_table *table)
+void philo_info()
 {
     for (int i = 0; i < table->info->nb_philos; i++)
             printf("philo ID:[%d]\nphilo N meals:[%d]\nphilo left fork[%d]\nphilo right fork[%d]\nphilo last meal[%lf]\n", table->philo[i].id, table->philo[i].nb_meals, table->philo[i].left_fork, table->philo[i].right_fork, table->philo[i].last_meal);
@@ -70,7 +70,7 @@ t_info *ft_parsedata(int ac, char **av)
     return (tmp);
 }
 
-t_philo *ft_init_philosophers(t_table *table)
+t_philo *ft_init_philosophers()
 {
     t_philo *philosophers;
     int     i;
@@ -94,7 +94,7 @@ t_philo *ft_init_philosophers(t_table *table)
     return (philosophers);
 }
 
-pthread_mutex_t *ft_init_forks(t_table *table)
+pthread_mutex_t *ft_init_forks()
 {
     pthread_mutex_t *forks;
     int             i;
@@ -114,22 +114,23 @@ pthread_mutex_t *ft_init_forks(t_table *table)
     return (forks);
 }
 
-void    *job(void *philo)
+void    *job(void *philos)
 {
-    t_philo *philos;
-    double current_time;
+    t_philo *philo;
+    size_t  current_time;
 
-    philos = philo;
-    current_time = ft_time() - ;
+    philo = philos;
     while (1)
     {
-        printf("[%d]<-->im eating....\n", philos->id);
-        printf("[%d]<-->im sleeping....\n", philos->id);
-        printf("[%d]<-->im thinking....\n", philos->id);
+        current_time = ft_time() - table->timeof_start;
+        printf("[%ld]--[%d]<-->im eating....\n", current_time, philo->id);
+        printf("[%ld]--[%d]<-->im sleeping....\n", current_time, philo->id);
+        printf("[%ld]--[%d]<-->im thinking....\n", current_time, philo->id);
+        pthread_mutex_lock(table->forks[]);
     }
 }
 
-void    ft_create_threads(t_table *table)
+void    ft_create_threads()
 {
     pthread_t   *philo_threads;
     int         i;
@@ -146,8 +147,6 @@ void    ft_create_threads(t_table *table)
 
 int main(int ac, char **av)
 {
-    t_table *table;
-
     table = (t_table *)malloc(sizeof(t_table));
     if (ac == 5 || ac == 6)
     {
@@ -156,11 +155,11 @@ int main(int ac, char **av)
         if (!table->info)
             exit(0);
         // Initialise table of philo's attribute
-        table->philo = ft_init_philosophers(table);
+        table->philo = ft_init_philosophers();
         philo_info(table);
         // Initialise fork's every fork is a mutex
-        table->forks = ft_init_forks(table);
-        ft_create_threads(table);
+        table->forks = ft_init_forks();
+        ft_create_threads();
         // Initialise supervisor to monitor threads
         while (1);
     }
@@ -169,7 +168,5 @@ int main(int ac, char **av)
         printf("Error nb args\n");
         return (0);
     }
-    // supervisor to check philo health
-    while(1);
     return (0);
 }

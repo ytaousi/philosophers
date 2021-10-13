@@ -33,7 +33,9 @@ typedef struct      s_table
     t_info          *info;
     t_philo         *philo;
     pthread_mutex_t *forks;
-    double           timeof_start;
+    size_t          timeof_start;
 }                   t_table;
+
+t_table             *table;
 
 #endif
