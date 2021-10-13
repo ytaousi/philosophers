@@ -111,6 +111,7 @@ pthread_mutex_t *ft_init_forks()
         pthread_mutex_init(&(forks[i]), NULL);
         i++;
     }
+    pthread_mutex_init(&table->display_msg, NULL);
     return (forks);
 }
 
@@ -124,12 +125,18 @@ void    *job(void *philos)
     {
         current_time = ft_time() - table->timeof_start;
         pthread_mutex_lock(&table->forks[philo->left_fork]);
-        printf("philo->[%d] took left fork [%d] loooockedd  \n", philo->id, philo->left_fork);
+        pthread_mutex_lock(&table->display_msg);
+        printf("[%ld]s--philo->[%d] took left fork [%d] loooockedd  \n", current_time, philo->id, philo->left_fork);
+        pthread_mutex_unlock(&table->display_msg);
         pthread_mutex_lock(&table->forks[philo->right_fork]);
-        printf("philo ->[%d] took right fork [%d] loooockedd \n", philo->id, philo->right_fork);
+        pthread_mutex_lock(&table->display_msg);
+        printf("[%ld]s--philo ->[%d] took right fork [%d] loooockedd \n", current_time, philo->id, philo->right_fork);
+        pthread_mutex_unlock(&table->display_msg);
+        pthread_mutex_lock(&table->display_msg);
         printf("[%ld]s--philo->[%d]<-->im eating....\n", current_time, philo->id);
         printf("[%ld]s--philo->[%d]<-->im sleeping....\n", current_time, philo->id);
         printf("[%ld]s--philo->[%d]<-->im thinking....\n", current_time, philo->id);
+        pthread_mutex_unlock(&table->display_msg);
         pthread_mutex_unlock(&table->forks[philo->left_fork]);
         pthread_mutex_unlock(&table->forks[philo->right_fork]);
     }
@@ -156,12 +163,12 @@ int main(int ac, char **av)
     if (ac == 5 || ac == 6)
     {
         table->info = ft_parsedata(ac, av);
-        table_info(table);
+        //table_info(table);
         if (!table->info)
             exit(0);
         // Initialise table of philo's attribute
         table->philo = ft_init_philosophers();
-        philo_info(table);
+        //philo_info(table);
         // Initialise fork's every fork is a mutex
         table->forks = ft_init_forks();
         ft_create_threads();
