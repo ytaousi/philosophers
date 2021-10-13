@@ -123,10 +123,15 @@ void    *job(void *philos)
     while (1)
     {
         current_time = ft_time() - table->timeof_start;
-        printf("[%ld]--[%d]<-->im eating....\n", current_time, philo->id);
-        printf("[%ld]--[%d]<-->im sleeping....\n", current_time, philo->id);
-        printf("[%ld]--[%d]<-->im thinking....\n", current_time, philo->id);
-        pthread_mutex_lock(table->forks[]);
+        pthread_mutex_lock(&table->forks[philo->left_fork]);
+        printf("philo->[%d] took left fork [%d] loooockedd  \n", philo->id, philo->left_fork);
+        pthread_mutex_lock(&table->forks[philo->right_fork]);
+        printf("philo ->[%d] took right fork [%d] loooockedd \n", philo->id, philo->right_fork);
+        printf("[%ld]s--philo->[%d]<-->im eating....\n", current_time, philo->id);
+        printf("[%ld]s--philo->[%d]<-->im sleeping....\n", current_time, philo->id);
+        printf("[%ld]s--philo->[%d]<-->im thinking....\n", current_time, philo->id);
+        pthread_mutex_unlock(&table->forks[philo->left_fork]);
+        pthread_mutex_unlock(&table->forks[philo->right_fork]);
     }
 }
 
