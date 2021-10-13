@@ -160,7 +160,6 @@ int main(int ac, char **av)
         ft_create_threads(table);
         // Initialise supervisor to monitor threads
         while (1);
-        tt
     }
     else
     {
