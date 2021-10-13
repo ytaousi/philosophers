@@ -9,24 +9,24 @@
 #include <sys/time.h>
 #include <pthread.h>
 
-typedef struct  s_info
+typedef struct      s_info
 {
-    int         nb_philos;
-    double      time_to_die;
-    double      time_to_eat;
-    double      time_to_sleep;
-    int         nb_timeof_eat;
-}               t_info;
+    int             nb_philos;
+    double          time_to_die;
+    double          time_to_eat;
+    double          time_to_sleep;
+    int             nb_timeof_eat;
+}                   t_info;
 
-typedef struct  s_philo
+typedef struct      s_philo
 {
-    int id;
-    int right_fork;
-    int left_fork;
-    int nb_meals;
-    double last_meal;
-    
-}               t_philo;
+    int             id;
+    int             right_fork;
+    int             left_fork;
+    int             nb_meals;
+    double          last_meal;
+    pthread_mutex_t role_meal;
+}                   t_philo;
 
 typedef struct      s_table
 {

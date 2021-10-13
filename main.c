@@ -89,6 +89,7 @@ t_philo *ft_init_philosophers()
         philosophers[i].last_meal = ft_time();
         philosophers[i].left_fork = i;
         philosophers[i].right_fork = (i + 1) % table->info->nb_philos;
+        pthread_mutex_init(&philosophers[i].role_meal, NULL);
         i++;
     }
     return (philosophers);
@@ -124,19 +125,29 @@ void    *job(void *philos)
     while (1)
     {
         current_time = ft_time() - table->timeof_start;
+        
         pthread_mutex_lock(&table->forks[philo->left_fork]);
         pthread_mutex_lock(&table->display_msg);
         printf("[%ld]s--philo->[%d] took left fork [%d] loooockedd  \n", current_time, philo->id, philo->left_fork);
         pthread_mutex_unlock(&table->display_msg);
+        
         pthread_mutex_lock(&table->forks[philo->right_fork]);
         pthread_mutex_lock(&table->display_msg);
-        printf("[%ld]s--philo ->[%d] took right fork [%d] loooockedd \n", current_time, philo->id, philo->right_fork);
+        printf("[%ld]s--philo->[%d] took right fork [%d] loooockedd \n", current_time, philo->id, philo->right_fork);
         pthread_mutex_unlock(&table->display_msg);
+        
+        pthread_mutex_lock(&philo->role_meal);
         pthread_mutex_lock(&table->display_msg);
         printf("[%ld]s--philo->[%d]<-->im eating....\n", current_time, philo->id);
+        pthread_mutex_unlock(&table->display_msg);
+        pthread_mutex_unlock(&philo->role_meal);
+        
+        pthread_mutex_lock(&table->display_msg);
         printf("[%ld]s--philo->[%d]<-->im sleeping....\n", current_time, philo->id);
         printf("[%ld]s--philo->[%d]<-->im thinking....\n", current_time, philo->id);
         pthread_mutex_unlock(&table->display_msg);
+
+
         pthread_mutex_unlock(&table->forks[philo->left_fork]);
         pthread_mutex_unlock(&table->forks[philo->right_fork]);
     }
