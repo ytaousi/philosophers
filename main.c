@@ -141,15 +141,21 @@ void    *job(void *philos)
         printf("[%ld]s--philo->[%d]<-->im eating....\n", current_time, philo->id);
         pthread_mutex_unlock(&table->display_msg);
         pthread_mutex_unlock(&philo->role_meal);
+
+        pthread_mutex_unlock(&table->forks[philo->left_fork]);
+        pthread_mutex_lock(&table->display_msg);
+        printf("[%ld]s--philo->[%d] put left fork [%d] unloooockedd \n", current_time, philo->id, philo->right_fork);
+        pthread_mutex_unlock(&table->display_msg);
+        
+        pthread_mutex_unlock(&table->forks[philo->right_fork]);
+        pthread_mutex_lock(&table->display_msg);
+        printf("[%ld]s--philo->[%d] put right fork [%d] unloooockedd \n", current_time, philo->id, philo->right_fork);
+        pthread_mutex_unlock(&table->display_msg);
         
         pthread_mutex_lock(&table->display_msg);
         printf("[%ld]s--philo->[%d]<-->im sleeping....\n", current_time, philo->id);
         printf("[%ld]s--philo->[%d]<-->im thinking....\n", current_time, philo->id);
         pthread_mutex_unlock(&table->display_msg);
-
-
-        pthread_mutex_unlock(&table->forks[philo->left_fork]);
-        pthread_mutex_unlock(&table->forks[philo->right_fork]);
     }
 }
 
