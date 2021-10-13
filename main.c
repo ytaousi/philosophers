@@ -117,8 +117,10 @@ pthread_mutex_t *ft_init_forks(t_table *table)
 void    *job(void *philo)
 {
     t_philo *philos;
+    double current_time;
 
     philos = philo;
+    current_time = ft_time() - ;
     while (1)
     {
         printf("[%d]<-->im eating....\n", philos->id);
@@ -134,6 +136,7 @@ void    ft_create_threads(t_table *table)
 
     i = 0;
     philo_threads = (pthread_t *)malloc(sizeof(pthread_t) * table->info->nb_philos);
+    table->timeof_start = ft_time();
     while (i < table->info->nb_philos)
     {
         pthread_create(philo_threads + i, NULL, &job, &table->philo[i]);
