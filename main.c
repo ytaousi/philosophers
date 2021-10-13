@@ -1,10 +1,21 @@
 #include "philosopher.h"
 
+void    table_info(t_table *table)
+{
+    printf("number of philos :[%d]\ntime_to_die :[%lf]\ntime_to_eat :[%lf]\ntime_to_sleep :[%lf]\nnumber_of_times_philos_eat :[%d]\n", table->info->nb_philos, table->info->time_to_die, table->info->time_to_eat, table->info->time_to_sleep, table->info->nb_timeof_eat);
+}
+
+void philo_info(t_table *table)
+{
+    for (int i = 0; i < table->info->nb_philos; i++)
+            printf("philo ID:[%d]\nphilo N meals:[%d]\nphilo left fork[%d]\nphilo right fork[%d]\nphilo last meal[%lf]\n", table->philo[i].id, table->philo[i].nb_meals, table->philo[i].left_fork, table->philo[i].right_fork, table->philo[i].last_meal);
+}
+
 double ft_time(void)
 {
     struct timeval tv;
     double time_in_milli; 
-    
+
     gettimeofday(&tv, NULL);
     time_in_milli = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
     return (time_in_milli);
@@ -106,11 +117,14 @@ pthread_mutex_t *ft_init_forks(t_table *table)
 
 void    *job(void *philo)
 {
+    t_philo *philos;
+
+    philos = philo;
     while (1)
     {
-        printf("im eating....\n");
-        printf("im sleeping....\n");
-        printf("im thinking....\n");
+        printf("[%d]<-->im eating....\n", philos->id);
+        printf("[%d]<-->im sleeping....\n", philos->id);
+        printf("[%d]<-->im thinking....\n", philos->id);
     }
 }
 
@@ -123,7 +137,7 @@ void    ft_create_threads(t_table *table)
     philo_threads = (pthread_t *)malloc(sizeof(pthread_t) * table->info->nb_philos);
     while (i < table->info->nb_philos)
     {
-        pthread_create(philo_threads + i, NULL, &job, NULL);
+        pthread_create(philo_threads + i, NULL, &job, &table->philo[i]);
         i++;
     }
 }
@@ -144,10 +158,13 @@ int main(int ac, char **av)
         // Initialise fork's every fork is a mutex
         table->forks = ft_init_forks(table);
         ft_create_threads(table);
+        // Initialise supervisor to monitor threads
+        while (1);
     }
     else
     {
         printf("Error nb args\n");
+        return (0);
     }
     return (0);
 }
