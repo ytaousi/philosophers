@@ -25,7 +25,6 @@ typedef struct      s_philo
     int             left_fork;
     int             nb_meals;
     double          last_meal;
-    pthread_mutex_t role_meal;
 }                   t_philo;
 
 typedef struct      s_table
@@ -38,5 +37,21 @@ typedef struct      s_table
 }                   t_table;
 
 t_table             *table;
+
+void            ft_grab_forks(t_philo *philo);
+void            ft_start_eating(t_philo *philo);
+void            ft_release_forks(t_philo *philo);
+t_philo         *ft_init_philosophers();
+pthread_mutex_t *ft_init_forks();
+void            ft_create_threads();
+void            ft_output(t_philo *philo, char *msg);
+t_info          *ft_parsedata(int ac, char **av);
+int             ft_valid_args(int ac, char **av);
+int             ft_number(char *str);
+double          ft_time(void);
+// util or useless funcs hmmm
+void            philo_info();
+void            table_info();
+void            *job(void *philos);
 
 #endif
