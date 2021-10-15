@@ -10,8 +10,9 @@ void    *job(void *philos)
         ft_grab_forks(philo);
         ft_start_eating(philo);
         ft_release_forks(philo);
-        ft_output(philo, "I should go to sleep now");
-        ft_output(philo, "nice naaap letss think");
+        display(philo, "I should go to sleep now");
+        // delay time_to_sleep
+        display(philo, "nice naaap letss think");
     }
 }
 
@@ -31,13 +32,15 @@ int main(int ac, char **av)
         table->forks = ft_init_forks();
         ft_create_threads();
         // better use pthread_join -- initialize supervisor to monitor threads
-        //while(1);
+        while(1)
+        {
+            
+        }
     }
     else
     {
         printf("Error nb args\n");
         return (0);
     }
-    while (1);
     return (0);
 }

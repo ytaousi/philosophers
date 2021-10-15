@@ -58,10 +58,4 @@ void    ft_create_threads()
         pthread_create(philo_threads + i, NULL, &job, &table->philo[i]);
         i++;
     }
-    // i = 0;
-    // while (i < table->info->nb_philos)
-    // {
-    //     pthread_join(philo_threads[i], NULL);
-    //     i++;
-    // }
 }

@@ -11,16 +11,6 @@ void philo_info()
             printf("philo ID:[%d]\nphilo N meals:[%d]\nphilo left fork[%d]\nphilo right fork[%d]\nphilo last meal[%lf]\n", table->philo[i].id, table->philo[i].nb_meals, table->philo[i].left_fork, table->philo[i].right_fork, table->philo[i].last_meal);
 }
 
-double ft_time(void)
-{
-    struct timeval tv;
-    double time_in_milli; 
-
-    gettimeofday(&tv, NULL);
-    time_in_milli = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
-    return (time_in_milli);
-}
-
 int     ft_number(char *str)
 {
     int i;
@@ -68,14 +58,4 @@ t_info *ft_parsedata(int ac, char **av)
     else
         tmp->nb_timeof_eat = 0;
     return (tmp);
-}
-
-void            ft_output(t_philo *philo, char *msg)
-{
-    size_t current_time;
-
-    current_time = ft_time() - table->timeof_start;
-    pthread_mutex_lock(&table->display_msg);
-    printf("--[%ld]s-- I'm Philo [%d] and its my turn to print to screen, [%s]\n", current_time, philo->id, msg);
-    pthread_mutex_unlock(&table->display_msg);
 }
