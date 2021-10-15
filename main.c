@@ -10,8 +10,8 @@ void    *job(void *philos)
         ft_grab_forks(philo);
         ft_start_eating(philo);
         ft_release_forks(philo);
-        ft_output(philo, "let's takee a snap noww");
-        ft_output(philo, "nice naaap letss think");
+        display(philo, "let's takee a snap noww");
+        display(philo, "nice naaap letss think");
     }
 }
 
@@ -41,7 +41,7 @@ int main(int ac, char **av)
                 time_since_last_meal = ft_time() - table->timeof_start;
                 if (time_since_last_meal >= table->info->time_to_die)
                 {
-                    ft_output(table->philo, "dead");
+                    display(table->philo, "dead");
                     break;
                 }
                 i++;

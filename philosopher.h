@@ -46,7 +46,7 @@ void            ft_start_sleeping(t_philo *philo);
 t_philo         *ft_init_philosophers();
 pthread_mutex_t *ft_init_forks();
 void            ft_create_threads();
-void            ft_output(t_philo *philo, char *msg);
+void            display(t_philo *philo, char *msg);
 t_info          *ft_parsedata(int ac, char **av);
 int             ft_valid_args(int ac, char **av);
 int             ft_number(char *str);

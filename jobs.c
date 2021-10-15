@@ -5,7 +5,7 @@ void            ft_delay(int delay)
 
 }
 
-void            ft_output(t_philo *philo, char *msg)
+void            display(t_philo *philo, char *msg)
 {
     size_t current_time;
 
@@ -20,15 +20,15 @@ void            ft_output(t_philo *philo, char *msg)
 void        ft_grab_forks(t_philo *philo)
 {
     pthread_mutex_lock(&table->forks[philo->left_fork]);
-    ft_output(philo, "I took the left fork");
+    display(philo, "I took the left fork");
     pthread_mutex_lock(&table->forks[philo->right_fork]);
-    ft_output(philo, "I took the right fork");
+    display(philo, "I took the right fork");
 }
 
 void        ft_start_eating(t_philo *philo)
 {
     pthread_mutex_lock(&philo->dontdisturb);
-    ft_output(philo, "I am eating");
+    display(philo, "I am eating");
     philo->last_meal = ft_time();
     philo->nb_meals += 1;
     pthread_mutex_unlock(&philo->dontdisturb);
@@ -37,8 +37,8 @@ void        ft_start_eating(t_philo *philo)
 void        ft_release_forks(t_philo *philo)
 {
     pthread_mutex_unlock(&table->forks[philo->left_fork]);
-    ft_output(philo, "I released the left fork");
+    display(philo, "I released the left fork");
     pthread_mutex_unlock(&table->forks[philo->right_fork]);
-    ft_output(philo, "I released the right fork");
+    display(philo, "I released the right fork");
 }
 
