@@ -10,7 +10,7 @@ void    *job(void *philos)
         ft_grab_forks(philo);
         ft_start_eating(philo);
         ft_release_forks(philo);
-        ft_start_sleeping(philo);
+        ft_output(philo, "let's takee a snap noww");
         ft_output(philo, "nice naaap letss think");
     }
 }

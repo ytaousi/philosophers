@@ -42,7 +42,3 @@ void        ft_release_forks(t_philo *philo)
     ft_output(philo, "I released the right fork");
 }
 
-void     ft_start_sleeping(t_philo *philo)
-{
-    ft_output(philo, "let's takee a snap noww");
-}
