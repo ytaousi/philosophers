@@ -11,8 +11,8 @@ int main(int ac , char **av)
     
     while (1)
     {
-        current_time = ft_time() - time_start;
-        printf("---[%ld]ms\n", current_time);
+        current_time = (ft_time() - time_start);
+        printf("---[%ld]millisecond\n", current_time);
         usleep(800);
     }
     return (0);

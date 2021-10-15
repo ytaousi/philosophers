@@ -30,12 +30,14 @@ void        ft_grab_forks(t_philo *philo)
 
 void        ft_start_eating(t_philo *philo)
 {
+    pthread_mutex_lock(&philo->dontdisturb);
     display(philo, "I am eating");
     // delay time_to_eat
 }
 
 void        ft_release_forks(t_philo *philo)
 {
+    pthread_mutex_unlock(&philo->dontdisturb);
     pthread_mutex_unlock(&table->forks[philo->left_fork]);
     display(philo, "I released the left fork");
     pthread_mutex_unlock(&table->forks[philo->right_fork]);

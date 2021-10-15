@@ -31,11 +31,7 @@ int main(int ac, char **av)
         // Initialise fork's every fork is a mutex
         table->forks = ft_init_forks();
         ft_create_threads();
-        // better use pthread_join -- initialize supervisor to monitor threads
-        while(1)
-        {
-            
-        }
+        // better use pthread_join -- initialize supervisor to monitor thread
     }
     else
     {
