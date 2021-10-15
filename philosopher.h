@@ -51,9 +51,10 @@ int             ft_valid_args(int ac, char **av);
 int             ft_number(char *str);
 double          ft_time(void);
 void            *job(void *philos);
+void            display(t_philo *philo, char *msg);
 // util or useless funcs hmmm
 void            philo_info();
 void            table_info();
-void            display(t_philo *philo, char *msg);
+
 
 #endif
