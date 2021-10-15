@@ -25,6 +25,7 @@ typedef struct      s_philo
     int             left_fork;
     int             nb_meals;
     double          last_meal;
+    pthread_mutex_t dontdisturb;
 }                   t_philo;
 
 typedef struct      s_table
@@ -41,6 +42,7 @@ t_table             *table;
 void            ft_grab_forks(t_philo *philo);
 void            ft_start_eating(t_philo *philo);
 void            ft_release_forks(t_philo *philo);
+void            ft_start_sleeping(t_philo *philo);
 t_philo         *ft_init_philosophers();
 pthread_mutex_t *ft_init_forks();
 void            ft_create_threads();

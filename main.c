@@ -10,7 +10,7 @@ void    *job(void *philos)
         ft_grab_forks(philo);
         ft_start_eating(philo);
         ft_release_forks(philo);
-        ft_output(philo, "I should go to sleep now");
+        ft_start_sleeping(philo);
         ft_output(philo, "nice naaap letss think");
     }
 }
@@ -31,13 +31,27 @@ int main(int ac, char **av)
         table->forks = ft_init_forks();
         ft_create_threads();
         // better use pthread_join -- initialize supervisor to monitor threads
-        //while(1);
+        int i;
+        int time_since_last_meal;
+        while(1)
+        {
+            i = 0;
+            while (i < table->info->nb_philos)
+            {
+                time_since_last_meal = ft_time() - table->timeof_start;
+                if (time_since_last_meal >= table->info->time_to_die)
+                {
+                    ft_output(table->philo, "dead");
+                    break;
+                }
+                i++;
+            }
+        }
     }
     else
     {
         printf("Error nb args\n");
         return (0);
     }
-    while (1);
     return (0);
 }

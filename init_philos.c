@@ -19,6 +19,7 @@ t_philo *ft_init_philosophers()
         philosophers[i].last_meal = ft_time();
         philosophers[i].left_fork = i;
         philosophers[i].right_fork = (i + 1) % table->info->nb_philos;
+        pthread_mutex_init(&philosophers[i].dontdisturb, NULL);
         i++;
     }
     return (philosophers);
@@ -58,10 +59,4 @@ void    ft_create_threads()
         pthread_create(philo_threads + i, NULL, &job, &table->philo[i]);
         i++;
     }
-    // i = 0;
-    // while (i < table->info->nb_philos)
-    // {
-    //     pthread_join(philo_threads[i], NULL);
-    //     i++;
-    // }
 }

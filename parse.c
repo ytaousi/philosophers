@@ -69,13 +69,3 @@ t_info *ft_parsedata(int ac, char **av)
         tmp->nb_timeof_eat = 0;
     return (tmp);
 }
-
-void            ft_output(t_philo *philo, char *msg)
-{
-    size_t current_time;
-
-    current_time = ft_time() - table->timeof_start;
-    pthread_mutex_lock(&table->display_msg);
-    printf("--[%ld]s-- I'm Philo [%d] and its my turn to print to screen, [%s]\n", current_time, philo->id, msg);
-    pthread_mutex_unlock(&table->display_msg);
-}
