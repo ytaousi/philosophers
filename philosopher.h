@@ -53,6 +53,8 @@ int             ft_number(char *str);
 double          ft_time(void);
 void            ft_delaysleep(t_philo *philo);
 void            ft_delaymeal(t_philo *philo);
+void            *job(void *philos);
+void            display(t_philo *philo, char *msg);
 // util or useless funcs hmmm
 void            philo_info();
 void            table_info();
