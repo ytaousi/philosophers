@@ -3,8 +3,10 @@
 void    *job(void *philos)
 {
     t_philo *philo;
+    size_t last_meal;
 
     philo = philos;
+    last_meal = ft_time();
     while (1)
     {
         ft_grab_forks(philo);
