@@ -15,6 +15,7 @@ t_philo *ft_init_philosophers()
     while (i < table->info->nb_philos)
     {
         philosophers[i].id = i + 1;
+        philosophers[i].is_dead = 0;
         philosophers[i].nb_meals = 0;
         philosophers[i].last_meal = ft_time();
         philosophers[i].left_fork = i;
@@ -58,5 +59,6 @@ void    ft_create_threads()
     {
         pthread_create(philo_threads + i, NULL, &job, &table->philo[i]);
         i++;
+        usleep(60);
     }
 }

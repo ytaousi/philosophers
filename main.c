@@ -9,8 +9,10 @@ void    *job(void *philos)
     {
         ft_grab_forks(philo);
         ft_start_eating(philo);
+        ft_delaymeal(philo);
         ft_release_forks(philo);
         display(philo, "let's takee a snap noww");
+        ft_delaysleep(philo);
         display(philo, "nice naaap letss think");
     }
 }
@@ -23,7 +25,7 @@ int main(int ac, char **av)
         table->info = ft_parsedata(ac, av);
         //table_info(table);
         if (!table->info)
-            exit(0);
+            return(0);
         // Initialise table of philo's attribute
         table->philo = ft_init_philosophers();
         //philo_info(table);
@@ -32,17 +34,17 @@ int main(int ac, char **av)
         ft_create_threads();
         // better use pthread_join -- initialize supervisor to monitor threads
         int i;
-        int time_since_last_meal;
-        while(1)
+        size_t last_meal;
+        while (1)
         {
             i = 0;
             while (i < table->info->nb_philos)
             {
-                time_since_last_meal = ft_time() - table->timeof_start;
-                if (time_since_last_meal >= table->info->time_to_die)
+                last_meal = table->philo[i].last_meal;
+                if ((ft_time() - last_meal) >= table->info->time_to_die)
                 {
-                    display(table->philo, "dead");
-                    break;
+                    display(table->philo, " I am Dead");
+                    return(0);
                 }
                 i++;
             }

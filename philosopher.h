@@ -12,19 +12,20 @@
 typedef struct      s_info
 {
     int             nb_philos;
-    double          time_to_die;
-    double          time_to_eat;
-    double          time_to_sleep;
+    size_t          time_to_die;
+    size_t          time_to_eat;
+    size_t          time_to_sleep;
     int             nb_timeof_eat;
 }                   t_info;
 
 typedef struct      s_philo
 {
     int             id;
+    int             is_dead;
     int             right_fork;
     int             left_fork;
     int             nb_meals;
-    double          last_meal;
+    size_t          last_meal;
     pthread_mutex_t dontdisturb;
 }                   t_philo;
 
@@ -51,6 +52,8 @@ t_info          *ft_parsedata(int ac, char **av);
 int             ft_valid_args(int ac, char **av);
 int             ft_number(char *str);
 double          ft_time(void);
+void            ft_delaysleep(t_philo *philo);
+void            ft_delaymeal(t_philo *philo);
 // util or useless funcs hmmm
 void            philo_info();
 void            table_info();

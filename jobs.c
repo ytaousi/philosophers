@@ -1,8 +1,25 @@
 #include "philosopher.h"
 
-void            ft_delay(int delay)
+void            ft_delaysleep(t_philo *philo)
 {
+    size_t delay;
+    size_t beginning;
 
+    beginning = ft_time();
+    delay = table->info->time_to_sleep;
+    while ((ft_time() - beginning) < delay)
+        usleep(delay * 1000);
+}
+
+void            ft_delaymeal(t_philo *philo)
+{
+    size_t delay;
+    size_t beginning;
+
+    beginning = ft_time();
+    delay = table->info->time_to_eat;
+    while ((ft_time() - beginning) < delay)
+        usleep(delay * 1000);
 }
 
 void            display(t_philo *philo, char *msg)
@@ -11,9 +28,7 @@ void            display(t_philo *philo, char *msg)
 
     current_time = ft_time() - table->timeof_start;
     pthread_mutex_lock(&table->display_msg);
-    printf("--[%ld]s-- I'm Philo [%d] and [%s)]\n", current_time, philo->id, msg);
-    if (ft_strncmp(msg, "dead", 4) == 0)
-        exit(0);
+    printf("[%ld]millisecond Philo [%d] : [%s]\n", current_time, philo->id, msg);
     pthread_mutex_unlock(&table->display_msg);
 }
 
