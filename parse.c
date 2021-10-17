@@ -11,16 +11,6 @@
 //             printf("philo ID:[%d]\nphilo N meals:[%d]\nphilo left fork[%d]\nphilo right fork[%d]\nphilo last meal[%lf]\n", table->philo[i].id, table->philo[i].nb_meals, table->philo[i].left_fork, table->philo[i].right_fork, table->philo[i].last_meal);
 // }
 
-double ft_time(void)
-{
-    struct timeval tv;
-    double time_in_milli; 
-
-    gettimeofday(&tv, NULL);
-    time_in_milli = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
-    return (time_in_milli);
-}
-
 int     ft_number(char *str)
 {
     int i;

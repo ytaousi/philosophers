@@ -32,6 +32,16 @@ void            display(t_philo *philo, char *msg)
     pthread_mutex_unlock(&table->display_msg);
 }
 
+double ft_time(void)
+{
+    struct timeval tv;
+    double time_in_milli; 
+
+    gettimeofday(&tv, NULL);
+    time_in_milli = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000;
+    return (time_in_milli);
+}
+
 void        ft_grab_forks(t_philo *philo)
 {
     pthread_mutex_lock(&table->forks[philo->left_fork]);
@@ -44,16 +54,14 @@ void        ft_start_eating(t_philo *philo)
 {
     pthread_mutex_lock(&philo->dontdisturb);
     display(philo, "I am eating");
-    philo->last_meal = ft_time();
-    philo->nb_meals += 1;
-    pthread_mutex_unlock(&philo->dontdisturb);
+    ft_delaymeal(philo);
 }
 
 void        ft_release_forks(t_philo *philo)
 {
+    pthread_mutex_unlock(&philo->dontdisturb);
     pthread_mutex_unlock(&table->forks[philo->left_fork]);
     display(philo, "I released the left fork");
     pthread_mutex_unlock(&table->forks[philo->right_fork]);
     display(philo, "I released the right fork");
 }
-
